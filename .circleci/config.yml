@@ -44,7 +44,7 @@ jobs:
             set -x
             digdag run test_custom.dig
 
-worflows:
+workflows:
   version: 2
   workflow:
     jobs:
