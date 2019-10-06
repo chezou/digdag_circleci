@@ -19,3 +19,26 @@ jobs:
             set -x
             digdag run test.dig
 
+  build_and_test:
+    working_directory: ~/app
+    # To avoid this issue, we need to use machine executor: https://github.com/treasure-data/digdag/issues/649
+    machine:
+      image: ubuntu-1604:201903-01
+      docker_layer_caching: true
+    steps:
+      - checkout
+      - run:
+          name: Install digdag
+          command: |
+            curl -o ~/bin/digdag --create-dirs -L "https://dl.digdag.io/digdag-latest"
+            chmod +x ~/bin/digdag
+            echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build -f ./Dockerfile -t chezou/my-image:latest .
+      - run:
+          name: Test treasure-boxes workflows
+          command: |
+            set -x
+            digdag run test_custom.dig

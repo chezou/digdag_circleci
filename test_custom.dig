@@ -1,0 +1,4 @@
++task:
+  py>: test.show
+  docker:
+    image: "chezou/my-image:latest"
