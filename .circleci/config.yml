@@ -15,7 +15,7 @@ jobs:
             chmod +x ~/bin/digdag
             echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
       - run:
-          name: Test digdag run
+          name: Test target workflow
           command: |
             set -x
             digdag run test.dig
@@ -39,7 +39,7 @@ jobs:
           command: |
             docker build -f ./Dockerfile -t chezou/my-image:latest .
       - run:
-          name: Test treasure-boxes workflows
+          name: Test target workflows
           command: |
             set -x
             digdag run test_custom.dig
