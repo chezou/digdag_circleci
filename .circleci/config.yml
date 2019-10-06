@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/app
+    # To avoid this issue, we need to use machine executor: https://github.com/treasure-data/digdag/issues/649
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run:
+          name: Install digdag
+          command: |
+            curl -o ~/bin/digdag --create-dirs -L "https://dl.digdag.io/digdag-latest"
+            chmod +x ~/bin/digdag
+            echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+      - run:
+          name: Test treasure-boxes workflows
+          command: |
+            set -x
+            digdag run test.dig
+
