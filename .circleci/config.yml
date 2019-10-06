@@ -5,6 +5,7 @@ jobs:
     # To avoid this issue, we need to use machine executor: https://github.com/treasure-data/digdag/issues/649
     machine:
       image: ubuntu-1604:201903-01
+      docker_layer_caching: true
     steps:
       - checkout
       - run:
@@ -42,3 +43,10 @@ jobs:
           command: |
             set -x
             digdag run test_custom.dig
+
+worflows:
+  version: 2
+  workflow:
+    jobs:
+      - build
+      - build_and_test
