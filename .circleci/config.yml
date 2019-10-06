@@ -14,7 +14,7 @@ jobs:
             chmod +x ~/bin/digdag
             echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
       - run:
-          name: Test treasure-boxes workflows
+          name: Test digdag run
           command: |
             set -x
             digdag run test.dig
